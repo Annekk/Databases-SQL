@@ -1,0 +1,60 @@
+/* N�m� teht�v�t tehd��n UUSIin tauluihin. */
+
+
+
+/* Yp2_1:  Masi Yards'sta soitetaan ja perutaan 20.10.2011 tehty tilaus. 
+Tee tarpeelliset toimenpiteet tietokantaan. */
+----------------------------------------------------------------------------------------
+LISÄYS:
+select astunnus
+from UUSI_asiakas
+where asnimi = 'MasiYards';
+
+-- saadaan vastaukseksi: masi
+
+select tilausnro
+from UUSI_tilaus
+where astunnus='masi' and tilauspvm='2011.10.20';
+
+-- saadaan vastaukseksi: 209
+
+Etsittiin tauluista astunnus ja sita vastaavan tilauspvän tilausnro. SItten alla peruutetaan tilaus/poistetaan rivit.
+-----------------------------------------------------------------------------------------
+
+
+delete from uusi_tilausrivi
+where tilausnro = '209'
+
+delete from uusi_tilaus
+where tilausnro = '209'
+
+
+
+/* Yp2_2: Lis�� tuote-tauluun sarake Muutospaiva. */
+
+alter table uusi_tuote
+add Muutospaiva char(20)
+
+
+/* Yp2_3: Vie kaikkiin tuotetietoihin muutosp�iv�ksi jokin edellisen kuukauden p�iv�.*/
+
+update uusi_tuote
+set Muutospaiva = MONTH(CURRENT_DATE)
+
+
+/* Yp2_4: Nosta tuoteryhm��n 15 kuuluvien tuotteiden hintoja 5%:lla.*/
+
+update uusi_tuote
+set hinta = hinta * 1.05
+where trnro = 15
+
+
+
+-- LIS�TEHT�V�T:
+-- =============
+
+/* Yp2_ 8: Keksi aiheeseen liittyen 2 todellisen tuntuista teht�v�� ja 
+tee niit� vastaavat sql-lauseet. */
+
+
+/* Yp2_9: Etsi netist� asiaan liittyv� hyv� ohje tai esimerkki. Laita linkki sinne. */

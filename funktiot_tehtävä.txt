@@ -1,0 +1,118 @@
+/* Funktioiden käyttö select lauseessa */
+
+
+
+/* Fu_1: Hae suurin ja pienin tuotteen hinta. */
+
+select min(hinta),max(hinta)
+from tuote;
+
+
+
+/* Fu_2: Montako tuotetta on tuote taulussa? */
+
+select count(*)			/*lasketaan taulussa olevien rivien määrä*/
+from tuote;
+
+
+
+/* Fu_3: Mikä on tuotteiden hintojen keskiarvo? 
+Esitä keskiarvo kahdella desimaalilla.*/
+
+SELECT avg(hinta),round(hinta,2)   		/*round pyöristää, oltava sarakkeen nimi ja monen desimaalin tarkkuudella*/
+from tuote;
+
+
+
+/* Fu_4: Mikä on tilattujen tuotteiden 
+kappalemäärä yhteensä? */
+
+select sum(kpl)		/*lasketaan sarakkeen kpl arvot yhteen*/
+from tilausrivi;
+
+
+
+/* Fu_5: Hae asiakas-taulusta asiakkaan nimen 
+3 ensimmäistä merkkiä. */
+
+select LEFT(asnimi,3)
+from asiakas;
+
+
+
+/* Fu_6: Hae tilaus-taulusta tilausnumero, asiakastunnus, 
+tilauksen kuukausi ja tilauksen vuosi. */
+
+select tilausnro, astunnus, MONTH(getdate()), year(getdate())
+from tilaus;
+/*Ei toimi*/
+
+
+
+/* Fu_7: Milloin kauimmin asiakkaana ollut on 
+tullut asiakkaaksi? */
+
+select min(asvuosi)		/*kenellä asiakasvuosi aikaisin*/
+from asiakas;
+
+
+
+/* Fu_8: Mikä on viimeisin tilausnumero? */
+
+select max(tilausnro)		/*tilausnrot suurenee mitä useampia tilauksia on*/
+from tilaus;
+
+
+
+/* Fu_9: Monestako eri postitoimipaikasta 
+asiakkaita on? */
+
+select count(distinct postitmp)		/*laskee postitmp paikkojen määrän ja poistaa tuplaosumat*/
+from asiakas;
+
+
+
+/* Fu_10: Minä eri kuukausina tilauksia on tehty? */
+
+select tilauspvm month(getdate())
+from tilaus;
+/*EI TOIMI*/
+
+
+
+/* Fu_11: Hae tuotteiden nimet, hinnat ja 
+kustannukset. Pyöristä hinnat ja kustannukset alaspäin.
+Esitä kustannukset täysinä euroina. Jos hinta tai 
+kustannus puuttuu, laita listaan arvoksi 0.*/
+
+select tuotenimi, floor(hinta), floor(kustannus), round(kustannus,0), COALESCE(hinta,0), COALESCE(kustannus,0)
+from tuote;
+
+
+
+/* Fu_12: Hae tuotteen nimi ja hinta. 
+Esitä hinta yhden desimaalin tarkkuudella.*/
+
+select tuotenimi, round(hinta,1)
+from tuote;
+
+
+
+LIS�TEHT�V�T:
+=============
+
+/* Fu_ 13: Keksi aiheeseen liittyen 2 todellisen tuntuista tehtävää ja 
+tee niitä vastaavat sql-lauseet. */
+
+
+Näytä tuotteiden nimien viisi viimeistä kirjainta:
+select right(tuotenimi,5)
+from tuote;
+
+Laske tilausten määrä:
+select count(*)
+from tilausrivi;
+
+​
+/* Fu_14: Etsi netist� asiaan liittyv� hyv� ohje tai esimerkki. Laita linkki sinne. */
+https://www.w3schools.com/sql/sql_count_avg_sum.asp

@@ -1,0 +1,87 @@
+/* Tietojen ryhmittely select-lauseessa */
+
+
+/* Tr_1: Esitä tuoteryhmittäin: tuoteryhmän tuotteiden 
+hinnat yhteensä, tuotteiden keskihinta sekä tuotteiden 
+kustannukset. */
+
+select trnro, sum(hinta), avg(hinta), kustannus
+from tuote
+group by trnro;
+
+
+
+/* Tr_2: Montako tuotetta kuhunkin tuoteryhmään 
+kuuluu? */
+
+select trnro, count(trnro)
+from tuote
+group by trnro;
+
+
+
+/* Tr_3: Minä vuonna asiakkaaksi on tullut 
+vähintään 2 asiakasta? */
+
+select asvuosi, count(*)	/*valitaan asiakasvuosisarake, lasketaan niiden lkm*/
+from asiakas
+group by asvuosi		/*ryhmitellään asikasvuosittain*/
+having count(*) >=2;		/*ne vuodet jotka esiintyy vähintään 2 kertaa*/
+
+
+select asvuosi, count(*)
+from asiakas
+group by asvuosi;  /*tällä lauseella näkyviin, kuinka monta asiakasta vuosittain*/
+
+
+
+/* Tr_4: Listaa tilaukset, joissa on vähintään 
+3 tilausriviä. */
+
+select tilausnro, count(rivinro)		/*valitaan tilausnumero ja lasketaan monella rivillä sisältävät*/
+from tilausrivi
+group by tilausnro
+HAVING count(rivinro) >= 3;
+
+
+
+/* Tr_5: Laske montako tilausta kukin asiakas on tehnyt. 
+Näytä asiakkaan tunnus ja tilausten määrä. */
+
+SELECT astunnus, COUNT(tilausnro)		/*näytetään asiakastunnus ja lasketaan tilausnro määrä*/
+from tilaus
+group by astunnus;
+
+
+
+/* Tr_6: Missä postitoimipaikassa on vähintään 2 asiakasta? */
+
+select postitmp, count(postitmp)	/*näytetään postitmp ja lasketaan postitmp määrät sarakkeesta*/
+from asiakas
+group by postitmp			
+having count(postitmp) >= 2;
+
+
+
+/* Tr_7: Paljonko eri tuotteita on tilattu. 
+Tulosta tuotenumeron mukaan nousevaan järjestykseen. */
+
+select tuotenro, sum(kpl)		/*näytetään tuotteen numero, lasketaan tuotenumeroittain paljon tilattu*/
+from tilausrivi
+group by tuotenro;			/*ryhmittely tuotenumeron mukaan*/
+
+
+LISäTEHTäVäT:
+=============
+
+/* Tr_ 8: Keksi aiheeseen liittyen 2 todellisen tuntuista tehtävää ja 
+tee niitä vastaavat sql-lauseet. */
+
+Ryhmittele asiakasvuosittain laskevaan järjestykseen ja monta on tullut asiakkaaksi minäkin vuonna.
+select asvuosi, count(*) from asiakas group by asvuosi DESC
+
+
+/* Tr_9: Etsi netistä asiaan liittyvä hyvä ohje 
+tai esimerkki. Laita linkki sinne. */
+
+https://www.w3schools.com/sql/sql_groupby.asp

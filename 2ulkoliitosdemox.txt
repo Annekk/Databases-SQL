@@ -1,0 +1,82 @@
+/* Harjoituksia Ulkoliitokseen */
+
+/* HUOM! Mieti jokaisessa teht�v�ss� ensin tarvitaanko ulkoliitos vai 
+tavallinen liitos! */
+ 
+/* ULi_1: Ketkä asiakkaat ovat tehneet tilauksen? Asiakkaan nimi vain kerran.  */
+
+-näytetään kaikki tilaus-taulun rivien astunnukset, poistetaan tuplaosumat
+
+select DISTINCT astunnus
+from tilaus;
+
+
+/* ULi_2: Ketk� asiakkaat eivät ole tehneet tilausta? */
+Nuukia ei ole tehnyt tilausta
+
+
+
+
+
+
+
+/* ULi_3: Mitä tuotteita on tilattu. Tuotteen nimi vain kerran. */
+
+-taulut tilausrivi ja tuote. Tavallinen liitos, koska ei kysytä mitä ei ole tilattu.
+
+select distinct tuotenimi
+from tuote inner join tilausrivi
+on tuote.tuotenro = tilausrivi.tuotenro;
+
+
+
+
+/* ULi_4: Mitä tuotteita ei ole tilattu. */
+Ei ole tilattu paperiveitseä(tuotenro 5) ja kukkaroa(tuotenro7). Ulkoliitos, koska näistä ei tietoa tilausrivi-taulussa, koska ei tilattu.
+
+select *
+from tuote left outer join tilausrivi
+on tuote.tuotenro = tilausrivi.tuotenro
+where tilausnro is null;
+
+
+
+
+
+/* ULi_5: Hae kaikki tuotteet ja paljonko niitä on tilattu. Ota mukaan myös ne
+tuotteet, joita ei ole tilattu. */ 
+
+Tarvitaan taulut tilausrivi ja tuote
+
+select tuotenimi, kpl
+from tuote left outer join tilausrivi
+on tuote.tuotenro = tilausrivi.tuotenro;
+
+
+
+
+
+/* ULi_6: Hae kaikki asiakkaat sek� heid�n tilasnumerot ja niiden p�iv�m��r�t. Mukaan 
+my�s ne asiakkaa, joilla ei ole tilauksia. */
+
+Full join, koska kaksi taulua
+
+
+
+
+ 
+/* ULi_7: Hae kaikki tuotteet, sek� asiakkaiden nimet, jotka ovat tilanneet niit�.
+Mukaan my�s ne tuotteet, joita ei ole tilattu. */
+
+Tarvitaan taulut tuote,tilaus,tilausrivi
+ 
+ 
+ 
+-- LIS�TEHT�V�T:
+-- =============
+ 
+/* ULi_ 4: Keksi aiheeseen liittyen 2 todellisen tuntuista teht�v�� ja
+tee niit� vastaavat sql-lauseet. */
+ 
+ 
+/* ULi_5: Etsi netist� asiaan liittyv� hyv� ohje tai esimerkki. Laita linkki sinne. */
