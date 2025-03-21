@@ -1,0 +1,208 @@
+/* Peruskyselyjä yhteen tauluun: */
+
+
+
+/* Pk_1: Hae tuote-taulusta kaikki tuotteet; 
+	kaikki sarakkeet. */
+
+select *   	/*Valitse kaikki sarakkeet*/
+from tuote 	/*tuote taulusta*/
+
+
+/* Pk_2: Hae tuoteryhma-taulusta kaikki tuoteryhmät. */
+
+select *  
+from tuoteryhma
+
+
+/* Pk_3: Hae asiakkaiden nimet, yhteyshenkilöt ja 
+postitoimipaikat. Lajittele postitoimipaikoittain. */
+
+
+select asnimi, yhteyshlo, postitmp  	/*valittu tiettyjä sarakkeita*/
+from asiakas   				/*taulu on asiakas*/
+ORDER BY postitmp;			/*Lajiteltu postitmpn mukaan nousevaan järjestykseen*/
+
+
+/* Pk_4: Mistä eri postitoimipaikoista yrityksen 
+asiakkaat ovat? Näytä kukin postitoimipaikka vain kerran*/
+
+select DISTINCT postitmp   		/*näytetään vain postitmp sarake, arvot vain kertaalleen*/
+from asiakas;				/*taulusta asiakas*/
+
+
+
+/* Pk_5: Hae oululaisten asiakkaiden nimet. */
+
+select asnimi				/*taulusta asnimi sarake*/
+from asiakas				/*asiakas taulu*/
+where postitmp = 'Oulu';		/*postitmp on oulu*/
+
+
+/* Pk_6: Hae tuoteryhmän 11 tuotteet, joiden hinta 
+on alle 17 e.*/
+
+select tuotenimi 
+from tuote
+where hinta < 17 AND trnro = 11;
+
+
+/* Pk_7: Hae tilaus-taulusta niiden tilausten tiedot, jotka on 
+tilattu verkosta (V) ja niiden, joiden tila on T=toimitettu. */
+
+select *
+from tilaus
+where tapa ='V' OR tila='T';
+
+
+
+/* Pk_8: Hae ne asiakkaat, joiden postitoimipaikka alkaa 
+T-kirjaimella. */
+
+select asnimi
+from asiakas
+where postitmp like 'T%';   /*Jossa ensimmäinen kirjain on T*/
+
+
+/* Pk_9: Hae tuotteet, joiden nimessä ei esiinyy 
+merkkijono uk. */
+
+select tuotenimi
+from tuote
+where not tuotenimi like '%uk%';  	/*kaikki muut paitsi ne joissa uk jossain kohti sanaa*/
+
+
+
+/* Pk_10: Hae tuotteet, joiden hinta on välillä 25-30 e */
+
+select tuotenimi
+from tuote
+where hinta > 25 and hinta < 30;   	/*hinta yli 25e mutta alle 30*/
+
+
+/* Pk_11: Hae tuotteet, joiden kustannukset ovat 
+6, 7.4 tai 12.3e */ 
+
+select tuotenimi
+from tuote
+where kustannus = 6 OR kustannus = 7.4 OR kustannus = 12.3;   	/*kustannus joko x tai y tai z*/
+
+
+/* Pk_12: Hae asiakkaat, joille ei ole ilmoitettu 
+yhteyshenkilöä. */
+
+select asnimi
+from asiakas
+where yhteyshlo is null;
+
+
+/* Pk_13: Hae niiden tuotteiden nimet, joiden hinta on
+yli 16 e. Näytä tulos aakkosjärjestyksessä. */
+
+select tuotenimi
+from tuote
+where hinta > 16 
+order by tuotenimi;  		/*nouseva järjestys automaattisesti*/
+
+
+/* Pk_14: Hae oululaiset asiakkaat, jotka ovat tulleet 
+asiakkaaksi 2010-luvulla. */
+
+
+select asnimi
+from asiakas
+where postitmp = 'OULU' AND asvuosi=2010;
+
+
+/* Pk_15: Hae kaikki sarakkeet tilaus-taulusta 
+01.09.2011 jälkeen lomakkeella tehdyistä tilauksista, 
+joita ei toimitettu.  */
+
+
+----Pitäisi olla masi 2011
+
+
+/* Pk_16: Hae ei oululaiset asiakkaat, 
+jotka ovat tulleet asiakkaaksi vuoden 2008 jälkeen.  */
+
+select asnimi
+from asiakas
+where not postitmp like 'OULU' and asvuosi > 2008;
+
+
+/* Pk_17: Hae tuotteet joiden hinta on yli 25e ja 
+kustannukset alle 15 e. */
+
+select tuotenimi
+from tuote
+where hinta > 25 AND kustannus < 15;
+
+
+/* Pk_18: Hae ne helsinkiläiset ja oululaiset asiakkaat,
+joitka ovat tulleet asiakkaaksi ennen vuotta 2008 tai 
+vuoden 2010 jälkeen.*/
+
+
+select asnimi
+from asiakas
+where (postitmp = 'OULU' or postitmp ='HELSINKI') and (asvuosi < 2008 OR asvuosi > 2010);
+
+
+/* Pk_19: Hae asiakkaat, joiden yhteyshenkilön nimi 
+alkaa o-kirjaimella. */
+
+select asnimi
+from asiakas
+where yhteyshlo like 'O%';
+
+/* Pk_20: Hae tuotteet, joiden nimen toinen kirjain 
+Ei ole u. */
+
+select tuotenimi
+from tuote
+where not tuotenimi like '_U%';		/*hae ensin missä u toinen ja lisää not eli päinvastainen*/
+
+
+/* Pk_21: Hae ne asiakkaat, jotka ovat tulleet asiakkaiksi 
+ vuonna 2006, 2008 tai 2010. */
+
+
+select asnimi
+from asiakas
+where asvuosi = 2006 OR asvuosi = 2008 or asvuosi = 2010;
+
+
+/* Pk_22: Hae tilaukset, joita  ei ole toimitettu.
+Huom! Tutki toimitusketjun vaiheet tietokannan kuvauksista. */
+
+
+select *
+from tilaus
+where not tila like 'T';
+
+
+Jos halutaan myös ne, joiden tila on null:
+
+select *
+from tilaus
+where not tila like 'T' OR tila is null;
+
+
+-- LISäTEHTäVäT:
+-- =============
+
+/* Pk_ 23: Keksi aiheeseen liittyen 2 todellisen tuntuista tehtävää ja 
+tee niitä vastaavat sql-lauseet. */
+
+Etsi yli 30 e hintaiset tuotteet:
+select tuotenimi from tuote where hinta > 30
+
+etsi alle 15 e tuotteet:
+ MySQL palautti tyhjän tulosjoukon (siis nolla riviä). (Kysely kesti 0,0011 sekuntia.)
+select tuotenimi from tuote where hinta < 15
+eli ei yhtään alle 15 e hintaista tuotetta
+
+
+/* Pk_24: Etsi netistä asiaan liittyvä hyvä ohje tai esimerkki. Laita linkki sinne. */
+
+https://www.w3schools.com/sql/default.asp
